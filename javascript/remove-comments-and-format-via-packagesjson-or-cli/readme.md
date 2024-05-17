@@ -14,7 +14,7 @@ Loaded prettier
 Removed comments: // wadwwa,//fwafaw,//  let a= 'b',//;test
 Removed comments from /home/remcostoeten/development/minimal-cv/src/components/effects/InfiniteSlider.tsx
 Formatted /home/remcostoeten/development/minimal-cv/src/components/effects/InfiniteSlider.tsx
-
+```
 
 ## Features
 
