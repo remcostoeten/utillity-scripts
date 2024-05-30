@@ -4,17 +4,15 @@ This script is used to maintain the health of your project's dependencies. It ch
 
 Ensure that you have `depcheck` installed globally. If not, you can install it using the following command:
 
-\```bash
-npm install -g depcheck
-\```
+`npm install -g depcheck`
 
 ## Usage
 
 To set up and run this script, you can use the following command in your terminal:
 
-\```bash
+```bash
 curl -s https://raw.githubusercontent.com/remcostoeten/utillity-scripts/master/javascript/check-for-unused-npm-packages/setup-cleanup-script.sh | bash
-\```
+```
 
 This command will:
 1. Download the `cleanup-packages.sh` script.
@@ -29,7 +27,7 @@ This command will:
 
 ### Script Content
 
-\```bash
+```bash
 #!/bin/bash
 
 # Check for unused dependencies
@@ -39,13 +37,13 @@ depcheck
 # Check for outdated packages
 echo "Checking for outdated packages..."
 npm outdated
-\```
+```
 
 ### Setup Script
 
 Create a setup script `setup-cleanup-script.sh` with the following content in the root directory of your project and give it executable permissions with `chmod +x setup-cleanup-script.sh`.
 
-\```bash
+```bash
 #!/bin/bash
 
 # Find the scripts directory, excluding certain directories
@@ -83,18 +81,18 @@ else
 fi
 
 echo "Setup complete. You can now run the cleanup script using 'npm run cleanup'."
-\```
+```
 
 ### Usage Instructions
 
 1. **Download and run the setup script**:
-   \```bash
+   ```bash
    curl -s https://raw.githubusercontent.com/remcostoeten/utillity-scripts/master/javascript/check-for-unused-npm-packages/setup-cleanup-script.sh | bash
-   \```
+   ```
 
 2. **Run the cleanup script**:
-   \```bash
+   ```bash
    npm run cleanup
-   \```
+   ```
 
 This setup script will automate the entire process, making it easy to integrate the cleanup script into your project with a single command.
