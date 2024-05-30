@@ -1,38 +1,33 @@
-# Packages
+# Cleanup Packages Script
 
-This folder contains various utility scripts and tools to help manage and maintain your project.
-
-## Sub-Folders
-
-### check-for-unused-npm-packages
-
-This folder contains a script to check for unused npm packages in your project.
-
-- **cleanup-packages.js**: Script to identify and clean up unused npm packages.
-
-### remove-comments-and-format-via-packagesjson-or-cli
-
-This folder contains scripts to remove comments and format code via $(package.json) or CLI.
-
-- **cleanup.js**: Script to remove comments and format code.
-- **readme.md**: Documentation for the scripts in this folder.
-
-### shadcn-ui-lazymans-auto-importer
-
-This folder contains scripts to automate the import of ShadCN UI components.
-
-- **add-component.sh**: Script to add a new ShadCN UI component.
-- **LICENSE**: License information for the scripts.
-- **README.md**: Documentation for the scripts in this folder.
-- **update-imports.js**: Script to update imports for ShadCN UI components.
-
-### sub-folder-and-files-to-json-api
-
-This folder contains a script to generate a JSON API from sub-folders and files.
-
-- **generate-json.js**: Script to generate JSON from sub-folders and files.
-- **readme.md**: Documentation for the script in this folder.
+This script is used to maintain the health of your project's dependencies. It checks for unused and outdated npm packages in your project.
 
 ## Usage
 
-Refer to the individual $(README.md) files in each sub-folder for detailed usage instructions and examples.
+To run this script, navigate to the directory containing `cleanup-packages.js` and run the following command:
+
+```bash
+./cleanup-packages.js
+```
+
+Easiest would be to place the script in a lib or script folder in your projects and then modify the `package.json` file to include a script that runs the script. For example:
+
+```json
+"scripts": {
+  "cleanup": "node ./scripts/cleanup-packages.js"
+}
+```
+
+## What it Does
+
+1. **Check for unused dependencies**: The script uses `depcheck` to find and list any dependencies in your project that are not being used.
+
+2. **Check for outdated packages**: The script uses `npm outdated` to find and list any dependencies in your project that are outdated.
+
+## Prerequisites
+
+Ensure that you have `depcheck` installed globally. If not, you can install it using the following command:
+
+```bash
+npm install -g depcheck
+```
