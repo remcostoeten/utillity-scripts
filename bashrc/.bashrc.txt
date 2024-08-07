@@ -1,0 +1,152 @@
+DEV_DIR=~/development/
+BASH_MODULES=/home/remcostoeten/development/scripts_helpers/utillity-scripts/bashrc
+source $BASH_MODULES/shorthand-aliasses.bash
+source $BASH_MODULES/shorthand-bash-specific.bash
+
+# source /home/remcostoeten/development/utillity-scripts/bashrc/variables.bash
+
+# source /home/remcostoeten/development/utillity-scripts/bashrc/shorthand-aliasses.bash
+
+alias run='code . ; bun run dev'
+
+# Define paths for custom scripts and configuration
+export DEV_DIR="$HOME/development"
+export SCRIPTS_DIR="$DEV_DIR/scripts"
+export BASHRC_DIR="$DEV_DIR/bashrc"
+export BIN_DIR="$HOME/.local/bin"
+
+# Source external configuration files
+# source "$BASHRC_DIR/shorthand-aliasses.bash"
+# source "$BASHRC_DIR/shorthand-bash-specific.bash"
+# source "$SCRIPTS_DIR/functions.bash"
+
+# Make sure you have xclip installed:
+# sudo apt update
+# sudo apt install xclip
+
+xmodmap ~/.Xmodmap
+# Aliases for common commands
+alias tree_excluded='tree -I ".next|node_modules"'
+alias copytree='tree -I ".next|node_modules" | xclip -selection clipboard'
+alias xx='exit'
+alias f='prettier --write .'
+alias vim='nvim'
+alias g='git'
+alias checkout='git checkout'
+alias restart='rm -rf node_modules .next; bun i; bun run dev'
+alias code='code-insiders .'
+alias rmrf='rm -rf'
+alias rebuild='rm -rf node_modules .next; bun i; bun run build'
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Functions for Git commits
+gitcommit() {
+  if [ -z "$1" ]; then
+    echo "Usage: gitcommit <commit message>"
+    return 1
+  fi
+  git add .
+  git commit -m "$*"
+}
+alias c=gitcommit
+
+gitcommitfiles() {
+  if [ "$#" -lt 2 ]; then
+    echo "Usage: gitcommitfiles <commit message> <file1> [<file2> ...]"
+    return 1
+  fi
+  local commit_message="$1"
+  shift
+  git add "$@"
+  git commit -m "$commit_message"
+}
+alias cf=gitcommitfiles
+
+# If not running interactively, don't do anything
+case $- in
+*i*) ;;
+*) return ;;
+esac
+
+# History settings
+HISTCONTROL=ignoreboth
+shopt -s histappend
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# Check window size after each command
+shopt -s checkwinsize
+
+# Enable color support for ls and add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+  test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+  alias ls='ls --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
+fi
+
+# Some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# If this is an xterm set the title to user@host:dir
+case "$TERM" in
+xterm* | rxvt*)
+  PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+  ;;
+*) ;;
+esac
+
+# Set prompt with color support
+if [ -n "$force_color_prompt" ]; then
+  if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
+    color_prompt=yes
+  else
+    color_prompt=
+  fi
+fi
+
+if [ "$color_prompt" = yes ]; then
+  PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+else
+  PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# Enable programmable completion features
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# Add custom binary and script paths to PATH
+export PATH="$PATH:$BIN_DIR"
+
+# Turso
+export PATH="$PATH:$HOME/.turso"
+
+# Bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# Bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
+# NVM (Node Version Manager)
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+
+# Autojump
+[[ -s /usr/share/autojump/autojump.zsh ]] && source /usr/share/autojump/autojump.zsh
+
+# FZF (Fuzzy Finder)
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# Load Angular CLI autocompletion
+source <(ng completion script)

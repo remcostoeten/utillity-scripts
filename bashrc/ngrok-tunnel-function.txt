@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Define the default base ports
+default_ports=(3000 3001 3002)
+
+# Function to check if a port is available
+function check_port() {
+  local port=$1
+  (echo >/dev/tcp/127.0.0.1/$port) &>/dev/null && return 1 || return 0
+}
+
+# Determine the port to use
+if [ -n "$1" ]; then
+  # Use the port provided as argument
+  port=$1
+  if check_port $port; then
+    echo "Using port $port"
+    ngrok http $port
+  else
+    echo "Port $port is not available"
+    exit 1
+  fi
+else
+  # Use the default ports
+  for port in "${default_ports[@]}"; do
+    if check_port $port; then
+      echo "Using port $port"
+      ngrok http $port
+      exit 0
+    fi
+  done
+  echo "No available default ports found"
+  exit 1
+fi
