@@ -1,0 +1,29 @@
+{
+    "type": "phrase",
+    "description": "Prompt: give full file",
+    "modes": [],
+    "usageCount": 0,
+    "prompt": false,
+    "omitTrigger": false,
+    "matchCase": false,
+    "showInTrayMenu": true,
+    "abbreviation": {
+        "abbreviations": [],
+        "backspace": true,
+        "ignoreCase": false,
+        "immediate": false,
+        "triggerInside": false,
+        "wordChars": "[\\w]"
+    },
+    "hotkey": {
+        "modifiers": [
+            "<super>"
+        ],
+        "hotKey": "c"
+    },
+    "filter": {
+        "regex": null,
+        "isRecursive": false
+    },
+    "sendMode": "kb"
+}

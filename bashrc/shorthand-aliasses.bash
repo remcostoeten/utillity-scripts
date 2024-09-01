@@ -7,6 +7,7 @@ alias build='bun run build'
 alias install='bun install'
 alias rebuildnpm='$RMALL ; npm install --force ; npm run build'
 alias restartnpm='$RMALL ; npm install --force ; npm run dev'
+alias re='$RMALL ; npm install --force ; npm run dev;'
 
 # Open bash configuration
 alias bashrc='vim ~/.bashrc'
@@ -20,6 +21,7 @@ alias pull='git pull'
 alias newbranch='git checkout -b'
 alias checkout='git checkout'
 alias commitpush='git add . && git commit -m "$1" && git push'
+
 # Navigating directories
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -27,9 +29,14 @@ alias ....='cd ../../..'
 alias .....='cd ../../../'
 alias ......='cd ../../../../../'
 
-# Vscode relate
-alias code="code-insiders"
+# Vscode (cursor) relate
+alias code="~/Applications/cursor.AppImage"
 alias codex='code .; exit'
+
+alias backslash='\'
+
+# Real vscode
+alias vscode='\code .'
 
 # Project directories
 alias dev="cd $DEV_DIR"
@@ -40,3 +47,6 @@ alias drizzle='drizzle-kit'
 alias gen='bun run drizzle-kit generate'
 alias migrate='bun run drizzle-kit migrate'
 alias dbpush='bun run drizzle-kit push'
+
+# Applications
+# alias apps='cd $APPS'

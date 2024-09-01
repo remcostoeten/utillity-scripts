@@ -1,0 +1,1 @@
+source ./speach-to-text/record.sh

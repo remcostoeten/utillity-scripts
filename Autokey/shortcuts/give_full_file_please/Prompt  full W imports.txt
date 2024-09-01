@@ -1,0 +1,1 @@
+Please sent me the entire contents off the component(s) / file. Don't skip any exepct for if there are inline <svgs in the component, than just write <svg...../> and remain with the code.
