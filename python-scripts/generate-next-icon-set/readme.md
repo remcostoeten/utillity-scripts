@@ -2,41 +2,13 @@
 
 This script automates the process of generating and implementing icons for Next.js projects. It supports various image formats and creates all necessary icons as per Next.js conventions.
 
-## TL;DR
--Generate all icons needed (apple, icon, favicon.ico) from 1 image with
-```bash
-remcostoeten@pop-os:~/development/utillity-scripts/python-scripts/generate-next-icon-set$ python icon-generator.py --image-path fav.webp 
-Saved: icons/favicon.ico
-Saved: icons/apple-icon.png
-Saved: icons/icon.png
-Saved: icons/icon-192x192.png
-Saved: icons/icon-256x256.png
-Saved: icons/icon-384x384.png
-Saved: icons/icon-512x512.png
-```
--Implement all icons in your Next.js project with 1 command
-```bash
-remcostoeten@pop-os:~/development/utillity-scripts/python-scripts/generate-next-icon-set$ python icon-generator.py --implement --icons-path ./icons --project-path ~/development/blob-vercel-postgress-dashboard-CRUD-PoC
-
-Icons implemented in /home/remcostoeten/development/blob-vercel-postgress-dashboard-CRUD-PoC
-```
-
-
-
-
-```
-python icon-generator.py --image-path logo.webp --output-dir ./icons
-python icon-generator.py --implement --icons-path ./icons --project-path /path/to/nextjs/project
-```
-
-
- 
 ## Features
 
 - Generate icons from a single source image
 - Check dimensions of the source image
 - Implement generated icons in your Next.js project structure
 - Support for multiple input formats (PNG, JPEG, WebP, GIF, BMP, etc.)
+- Interactive prompt for app name to use in manifest.json
 
 ## Installation
 
@@ -63,6 +35,8 @@ You can omit the `--output-dir` flag to use the default output directory `./icon
 python icon-generator.py --image-path logo.webp
 ```
 
+You will be prompted to enter your app name for the manifest.json file.
+
 ### Check Image Dimensions
 
 ```
@@ -84,6 +58,7 @@ python icon-generator.py --implement --icons-path ./icons --project-path /path/t
 - icon-256x256.png: 256x256
 - icon-384x384.png: 384x384
 - icon-512x512.png: 512x512
+- manifest.json: Web app manifest file
 
 ## Resulting Next.js Project Structure
 
@@ -102,7 +77,7 @@ src/app/
 
 ## Integrating Icons into Next.js Project
 
-1. Generate icons using this script
+1. Generate icons using this script (you'll be prompted for the app name)
 2. Implement icons in your project structure using the `--implement` flag
 3. In your `app/layout.js` or `app/layout.tsx`, add the following metadata:
 
@@ -117,18 +92,13 @@ export const metadata = {
       url: '/icons/apple-touch-icon-precomposed.png',
     },
   },
+  manifest: '/manifest.json',
 }
-```
-
-4. Add the manifest.json to your metadata:
-
-```
-manifest: '/manifest.json'
 ```
 
 ## Note
 
-After implementation, remember to update your metadata in `src/app/layout.js` or `src/app/layout.tsx`.
+After implementation, remember to review and update your metadata in `src/app/layout.js` or `src/app/layout.tsx` if necessary.
 
 For more information on Next.js icon conventions, visit:
 https://nextjs.org/docs/app/api-reference/file-conventions/metadata
