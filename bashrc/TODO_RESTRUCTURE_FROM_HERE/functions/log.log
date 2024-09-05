@@ -1,0 +1,10 @@
+2024-09-03 12:00:01 INFO Starting the server on port 3000
+2024-09-03 12:01:23 WARN Connection to the database is slow
+2024-09-03 12:02:45 ERROR Failed to connect to the database: Connection timed out
+2024-09-03 12:05:30 INFO User john_doe logged in successfully
+2024-09-03 12:07:10 DEBUG Fetching user details for user_id=123
+2024-09-03 12:08:02 INFO User jane_doe logged out
+2024-09-03 12:10:15 ERROR Failed to load user profile for user_id=456: User not found
+2024-09-03 12:12:30 WARN Low disk space on server: 95% used
+2024-09-03 12:15:00 INFO Server shutdown initiated
+

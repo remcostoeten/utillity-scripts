@@ -1,0 +1,112 @@
+# Shell Configuration Setup
+
+This is my personal (WiP) modular and scalable setup for managing my entire shell setup, including aliases and functions.
+
+> [!NOTE]
+> Directory paths, logic and nameing is WiP hence the folder `TODO_RESTRUCTURE_FROM_HERE`.
+
+## Directory Structure
+
+The configuration file, for me `.bashrc` but could also be `.zshrc` which should be located in the root of the user's home directory. `cat ~/.bashrc` where `~` is the user's home directory.
+
+You should maintain a directory on your system where all your shell configuration files are stored. In my case, this directory is currently located at `~/development/utility-scripts/bashrc/TODO_RESTRUCTURE_FROM_HERE/`. However, a best practice would be to place it within your development directory, like this: `~/development/shell-configuration`, or you could keep it alongside the configuration file, such as `~/shell-configuration`.
+
+
+```python
+TODO_RESTRUCTURE_FROM_HERE/
+│
+├── inject_all.sh               # Central script that sources all other injectors
+│
+├── injectors/
+│   ├── alias_injector.bash     # Sources all alias files
+│   └── function_injector.bash  # Sources all function files
+│
+├── functions/                  # Directory containing individual function scripts
+│   ├── catcopy_function.bash
+│   ├── colorize_logs.bash
+│   ├── copypwd_function.bash
+│   ├── countdown-timer.bash
+│   ├── dir_size_calculator.bash
+│   └── move_except.bash
+│
+├── aliases/                    # Directory containing individual alias scripts
+│   ├── development_aliases.bash
+│   ├── general_aliases.bash
+│   ├── git_aliases.bash
+│   └── navigation_aliases.bash
+│
+└── logs/
+    └── log.log                 # Example log file for testing
+```
+
+## Flow / architecture
+
+> [!TIP]
+> I opted for .bashrc and singular .bash partials, but exactly the same applies for .zshrc or .sh partials as they are backward compatible and thus interchangeable.
+
+### 1. **inject_all.sh**
+
+This is the central script that sources both the`alias_injector.bash! and`function_injector.bash! scripts. By sourcing this file in your`.bashrc! or`.zshrc!, you ensure that all your aliases and functions are loaded in every new shell session.
+
+**Usage:**
+
+```bash
+# Source the Inject All Script
+source /path/to/TODO_RESTRUCTURE_FROM_HERE/inject_all.sh
+```
+
+### 2. **alias_injector.bash**
+
+This script sources all alias files stored in the`aliasses/! directory. Each alias file is categorized by its purpose, making it easy to manage and extend.
+
+**Example:**
+
+```bash
+# Source the Alias Injector
+source "$(dirname "${BASH_SOURCE[0]}")/aliasses/general_aliasses.bash"
+```
+
+### 3. **function_injector.bash**
+
+This script sources all function files stored in the`functions/! directory. Each function is modular and can be easily added or removed as needed.
+
+**Example:**
+
+```bash
+# Source the Function Injector
+source "$(dirname "${BASH_SOURCE[0]}")/functions/catcopy_function.bash"
+```
+
+## Expanding and Scaling the Setup
+
+### Adding New Aliases
+
+1. **Create a New Alias File**: Add a new`.bash! file in the`aliasses/! directory with your desired aliases.
+2. **Source the Alias File**: Update`alias_injector.bash! to include your new alias file.
+
+   **Example:**
+
+   ```bash
+   # Source New Alias File
+   source "$(dirname "${BASH_SOURCE[0]}")/aliasses/my_new_aliases.bash"
+   ```
+
+### Adding New Functions
+
+1. **Create a New Function File**: Add a new`.bash! file in the`functions/! directory with your new function.
+2. **Source the Function File**: Update`function_injector.bash! to include your new function file.
+
+   **Example:**
+
+   ```bash
+   # Source New Function File
+   source "$(dirname "${BASH_SOURCE[0]}")/functions/my_new_function.bash"
+   ```
+
+### Scaling the Setup
+
+As your setup grows, consider organizing aliases and functions into more specific categories. You can create subdirectories within`aliasses/! or`functions/! if necessary, and adjust the injector scripts to source files from these new locations.
+
+---
+
+This setup ensures a clean and organized shell environment, allowing for easy expansion and maintenance. Feel free to customize and extend it according to your needs.
